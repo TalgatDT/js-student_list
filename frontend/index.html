@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Панель управления студентами</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    
+    <!-- <script>
+      // localStorage.clear();
+      document.addEventListener('DOMContentLoaded', () => {
+        addStudent()
+        loadStorage(JSON.parse(localStorage.getItem('students')))
+        // Сортировка
+        const getSort = ({
+          target
+        }) => {
+          const order = (target.dataset.order = -(target.dataset.order || -1));
+          const index = [...target.parentNode.cells].indexOf(target);
+          const collator = new Intl.Collator(['en', 'ru'], {
+            numeric: true
+          });
+          const comparator = (index, order) => (a, b) => order * collator.compare(
+            a.children[index].innerHTML,
+            b.children[index].innerHTML
+          );
+          for (const tBody of target.closest('table').tBodies)
+            tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+          for (const cell of target.parentNode.cells)
+            cell.classList.toggle('sorted', cell === target);
+        };
+        document.querySelectorAll('#student_table thead').forEach(tableTH => tableTH.addEventListener('click', () =>
+          getSort(event)));
+      });
+      // window.localStorage.removeItem('students');
+    </script> -->
+    <script defer src="scripts/main.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="title">
+        Наши студенты. Панель управления
+      </h1>
+      <div class="flex-container">
+        <div class="add-box">
+          <form id="student_form" class="add__form">
+            <!-- <label class="form__label" for="formGroupExampleInput">Имя</label>
+            <input  class="form-input" id="name" type="text" placeholder="" aria-label="Имя" required> -->
+
+            <label class="form__label" for="formGroupExampleInput">Имя</label>
+            <input  class="form-input" id="name" name="name" type="text" placeholder="Ваше имя" aria-label="Имя" required>
+
+            <label class="form__label" for="formGroupExampleInput">Фамилия</label>
+            <input  class="form-input" id="surname" name="surname" type="text" placeholder="Ваша фамилия" aria-label="Фамилия" required>
+
+            <label class="form__label" for="formGroupExampleInput">Отчество</label>
+            <input  class="form-input" id="lastname" name="lastname" type="text" placeholder="Ваше отчество" aria-label="Отчество"
+              required>
+
+            <label class="form__label" for="formGroupExampleInput">Дата Рождения</label>
+            <input  class="form-input" id="birthday" name="birthday" type="date" placeholder="01.01.2000" required>
+
+            <label class="form__label" for="formGroupExampleInput">Год начала обучения</label>
+            <input  class="form-input" id="studyStart" name="studyStart" type="text" placeholder="2000" aria-label="Год начала обучения"
+              required>
+
+            <label class="form__label" for="formGroupExampleInput">Факультет</label>
+            <input  class="form-input" id="faculty" name="faculty" type="text" placeholder="Факультет" aria-label="Факультет" required>
+
+            <input id="btn_add_student" class="btn  form__btn" type="submit" value="Добавить">
+          </form>
+        </div> <!--add-box-->
+
+        <div class="search-box">
+            <h2 class="title-search">
+              Поиск
+            </h2>
+            <form class="search__form">
+                  <input class="form-input" id="fio" name="fio" type="text" onkeyup="filterTable(this.value, 0)" placeholder="ФИО">
+                  <input class="form-input" id="start" name="start" type="text" onkeyup="filterTable(this.value, 1)" placeholder="Год начала обучения">
+                  <input class="form-input" id="end" name="end" type="text" onkeyup="filterTable(this.value, 2)" placeholder="Год окончания обучения">
+                  <input class="form-input" id="fac" name="fac" type="text" onkeyup="filterTable(this.value, 3)" placeholder="Факультет">
+            </form>
+            <table class="table" id="student_table">
+              <thead class="thead-table">
+                <tr>
+                  <th class="th-table">ФИО</th>
+                  <th class="th-table">Дата Рождения</th>
+                  <th class="th-table">Годы обучения</th>
+                  <th class="th-table">Факультет</th>
+                </tr>
+              </thead>
+              <tbody id="student_table_body">
+              </tbody>
+            </table>
+        </div> <!--search-box-->
+      </div> <!--flex-container-->
+    </div> <!--container-->
+  </body>
+</html>
